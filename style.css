@@ -1,0 +1,271 @@
+:root {
+  --bg: #0b1220;
+  --bg-card: #111827;
+  --border: #1f2937;
+  --primary: #10b981;
+  --danger: #ef4444;
+  --text-main: #f9fafb;
+  --text-muted: #9ca3af;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text-main);
+}
+
+.app {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 22px;
+}
+
+/* ===== Badge status database ===== */
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.status-badge.online {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--primary);
+}
+
+.status-badge.demo {
+  background: rgba(245, 158, 11, 0.15);
+  color: #f59e0b;
+}
+
+.status-badge.error {
+  background: rgba(239, 68, 68, 0.15);
+  color: var(--danger);
+}
+
+/* ===== Layer kamera bertumpuk ===== */
+#camera-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9; /* Disesuaikan otomatis dengan resolusi kamera */
+  background: #000;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+#video {
+  width: 100%;
+  height: 100%;
+  object-fit: fill; /* Container sudah mengikuti rasio video */
+  display: block;
+}
+
+#canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Canvas transparan, hanya garis bounding box yang terlihat */
+}
+
+#overlay-msg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 16px;
+  color: white;
+  z-index: 5; /* Paling atas */
+}
+
+#overlay-msg.hidden {
+  display: none;
+}
+
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: putar 1s linear infinite;
+  margin-bottom: 12px;
+}
+
+@keyframes putar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ===== Tombol ===== */
+.controls {
+  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  color: white;
+  background: #374151;
+}
+
+.btn-success {
+  background: #059669;
+}
+
+.btn-danger {
+  background: #dc2626;
+}
+
+.btn-small {
+  padding: 4px 10px;
+  font-size: 12px;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ===== Info deteksi ===== */
+.info {
+  margin-top: 16px;
+  padding: 12px 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.info label {
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+#person-count {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+/* ===== Log deteksi ===== */
+#data-section {
+  margin-top: 16px;
+  background: var(--bg-card);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  min-height: 180px;
+}
+
+#data-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+#data-header span:first-child {
+  flex: 1;
+}
+
+#data-list {
+  flex: 1;
+  max-height: 320px;
+  overflow-y: auto; /* Scroll jika konten panjang */
+  padding: 8px;
+}
+
+.log-item {
+  padding: 10px 12px;
+  background: #1f2937;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  border-left: 4px solid var(--primary);
+  font-size: 13px;
+}
+
+.log-item .time {
+  color: var(--text-muted);
+  font-size: 11px;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.log-item .items {
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.empty-state {
+  text-align: center;
+  color: var(--text-muted);
+  padding: 32px;
+  font-size: 14px;
+}
+
+/* ===== Toast ===== */
+#toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #111827;
+  border: 1px solid var(--border);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  z-index: 10;
+}
+
+#toast.show {
+  opacity: 1;
+}

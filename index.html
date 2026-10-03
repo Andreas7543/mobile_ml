@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edge AI Inventory Scanner</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="app-header">
+        <h1>Edge AI Inventory Scanner</h1>
+        <span id="db-status" class="status-badge demo">MEMULAI...</span>
+      </header>
+
+      <!-- Kamera dan canvas -->
+      <div id="camera-container">
+        <!-- Layer 1: Video stream dari kamera -->
+        <video id="video" autoplay playsinline muted></video>
+
+        <!-- Layer 2: Canvas untuk menggambar bounding box -->
+        <canvas id="canvas"></canvas>
+
+        <!-- Layer 3: Overlay untuk pesan loading/error -->
+        <div id="overlay-msg">
+          <div class="spinner" id="spinner"></div>
+          <p id="overlay-text">Memulai Sistem...</p>
+          <small id="overlay-sub"></small>
+        </div>
+      </div>
+
+      <!-- Tombol kontrol -->
+      <div class="controls">
+        <button id="btn-start" class="btn btn-success" disabled>Start Camera</button>
+        <button id="btn-stop" class="btn btn-danger" disabled>Stop Camera</button>
+        <button id="btn-ai" class="btn btn-success" disabled>Start AI</button>
+      </div>
+
+      <!-- Info deteksi -->
+      <div class="info">
+        <label>
+          <input type="checkbox" id="chk-person-only" />
+          Mode tantangan: deteksi hanya person
+        </label>
+        <div id="person-count">Jumlah orang: 0</div>
+      </div>
+
+      <!-- Log deteksi -->
+      <div id="data-section">
+        <div id="data-header">
+          <span>Detected Objects Log</span>
+          <span id="log-count">0 items</span>
+          <button id="btn-export" class="btn btn-small">Export CSV</button>
+        </div>
+        <div id="data-list">
+          <div class="empty-state">Menunggu deteksi objek...</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="toast"></div>
+
+    <!-- TensorFlow.js dan COCO-SSD -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd@2.2.3"></script>
+
+    <!-- Firebase SDK (versi compat) -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+    <!-- Logika aplikasi -->
+    <script src="app.js"></script>
+  </body>
+</html>
